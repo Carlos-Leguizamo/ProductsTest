@@ -37,7 +37,7 @@ export const ProductList = () => {
   };
 
   return (
-    <Box p={3} sx={{ backgroundColor: '#f4f6f8' }}>
+    <Box p={3} sx={{ backgroundColor: '#f4f6f8', borderRadius: 2, marginTop: 5, marginBottom: 5 }}>
       <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 2 }}>
         <Table sx={{ minWidth: 650 }} aria-label="product table">
           <TableHead>

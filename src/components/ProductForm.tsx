@@ -40,6 +40,7 @@ export const ProductForm = () => {
         borderRadius: 2,
         backgroundColor: '#ffffff',
         marginTop: 5,
+        marginBottom: 5,
       }}
     >
       <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', color: '#333' }}>
