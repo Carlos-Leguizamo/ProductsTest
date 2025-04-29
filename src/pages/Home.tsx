@@ -8,7 +8,7 @@ const Home = () => {
 
   return (
     <Container>
-      <Typography variant="h4" mt={4} mb={2}>Gestor de Productos</Typography>
+      <Typography variant="h4" mt={4} mb={2} sx={{textAlign:'center'}}>Gestor de Productos</Typography>
       <ProductForm />
       <ProductList />
     </Container>
