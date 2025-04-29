@@ -17,6 +17,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { useProductStore } from "../context/productStore";
 import { ToastContainer, toast } from "react-toastify";
+import { ConfirmDialog } from "./confirmDeleteProduct";
 
 export const ProductList = () => {
   const { products, deleteProduct } = useProductStore();
@@ -27,6 +28,14 @@ export const ProductList = () => {
   const [filter, setFilter] = useState<string>("");
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
+  };
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
+
+  const handleOpenDialog = (codigo: number) => {
+    setSelectedProduct(codigo);
+    setOpenDialog(true);
   };
 
   const filteredProducts = products.filter((product) =>
@@ -47,9 +56,18 @@ export const ProductList = () => {
   });
 
   const handleDelete = (codigo: number) => {
-    deleteProduct(codigo);
-    toast.success("Producto eliminado correctamente");
+    if (selectedProduct !== null) {
+      deleteProduct(codigo);
+      toast.success("Producto eliminado correctamente");
+      setOpenDialog(false);
+    }
   };
+
+  const handleCancelDelete = () => {
+    toast.info("Eliminación cancelada");
+    setOpenDialog(false);
+  };
+  
 
   const handleSortRequest = (
     key: "codigo" | "nombre" | "cantidad" | "creacion"
@@ -242,13 +260,15 @@ export const ProductList = () => {
                 <TableCell sx={{ padding: "16px" }}>
                   <IconButton
                     edge="end"
-                    onClick={() => handleDelete(p.codigo)}
+                    onClick={() => handleOpenDialog(p.codigo)}
                     sx={{
                       color: "#d32f2f",
                       "&:hover": {
                         backgroundColor: "#ffebee",
                         color: "#c62828",
                       },
+                      transition: "all 0.3s ease",
+                      borderRadius: "8px",
                     }}
                   >
                     <DeleteOutlineIcon />
@@ -265,6 +285,11 @@ export const ProductList = () => {
         </Typography>
       )}
       <ToastContainer />
+      <ConfirmDialog
+        open={openDialog}
+        onClose={handleCancelDelete}
+        onConfirm={() => selectedProduct && handleDelete(selectedProduct)}
+      />
     </Box>
   );
 };
