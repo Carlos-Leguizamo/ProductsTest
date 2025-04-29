@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TextField, Button, Box, Typography, Container } from '@mui/material';
 import { useProductStore } from '../context/productStore';
 import { Product } from '../types/Product';
+import { toast } from 'react-toastify';
 
 export const ProductForm = () => {
   const addProduct = useProductStore((s) => s.addProduct);
@@ -25,6 +26,7 @@ export const ProductForm = () => {
     };
     addProduct(product);
     setForm({ codigo: 0, nombre: '', descripcion: '', cantidad: 0 });
+    toast.success('Producto creado correctamente');
   };
 
   return (
