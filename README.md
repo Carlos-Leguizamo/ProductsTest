@@ -44,7 +44,7 @@ Asegúrate de tener instalado:
 ### 📦 Clonar el repositorio
 
 ```bash
-git https://github.com/Carlos-Leguizamo/ProductsTest.git
+git clone https://github.com/Carlos-Leguizamo/ProductsTest.git
 cd ProductsTest
 
 
