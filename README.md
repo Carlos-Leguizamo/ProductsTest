@@ -1,54 +1,82 @@
-# React + TypeScript + Vite
+# 🛒 Product Management System - Sistema de Gestión de Productos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Product Management System** es una aplicación web diseñada para gestionar productos de manera eficiente. Permite a los usuarios registrar productos con información básica como nombre, descripción, cantidad, y código, además de visualizar, ordenar, eliminar y filtrar la lista de productos. La aplicación utiliza almacenamiento local para persistir los datos, sin necesidad de un backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⚙️ Funcionalidades Principales
 
-## Expanding the ESLint configuration
+- **Gestión de productos**:
+  - Registro de productos con los siguientes campos:
+    - Código (número)
+    - Nombre (texto)
+    - Descripción (texto)
+    - Cantidad (número)
+    - Fecha de creación (automáticamente generada)
+- **Visualización de productos**:
+  - Ver lista de productos.
+  - Filtrar productos por nombre.
+  - Ordenar la lista de productos por:
+    - Código
+    - Nombre
+    - Cantidad
+    - Fecha de creación
+- **Persistencia de datos**:
+  - Los productos persisten incluso después de recargar la página utilizando `LocalStorage`.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚀 Guía de Instalación
+
+Este proyecto está basado en **React** con **TypeScript** para la parte frontend. Además, usa **Zustand** para el manejo de estado.
+
+---
+
+### 🧾 Requisitos Previos
+
+Asegúrate de tener instalado:
+
+- **Node.js** (v14+)
+- **npm** (v6+ o superior)
+
+---
+
+### 📦 Clonar el repositorio
+
+```bash
+git https://github.com/Carlos-Leguizamo/ProductsTest.git
+cd ProductsTest
+
+
+## ⚛️ Frontend – React
+
+Ubicación: `ProductsTest`
+
+```bash
+cd ProductsTest
+npm install       # Instala dependencias
+npm run dev         # Inicia el servidor de desarrollo
 ```
+## 🛠️ Tecnologías Utilizadas
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+**Frontend:** React, ypeScrip, CSS, Material UI, Toaster de notificaciones,etc.
+
+**Manejo de Estado:** Zustand
+
+**Persistencia:** LocalStorage
+
+**Herramientas:** npm, Vercel
+
+---
+
+## 🤝 Contribuciones
+
+Desarrollado por **Carlos Eduardo Leguizamo Ramirez** como parte de un ejercicio técnico para Conteo.  
+
+## 🛠️ App desplegada
+Como herramienta de espliegue utilize **Vercel**, ya que es bastate intuitiva y facilita la utilizacion de ella misma.
+
+- https://products-test-khaki.vercel.app/ 
+
