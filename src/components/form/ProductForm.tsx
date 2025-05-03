@@ -54,7 +54,6 @@ export const ProductForm = () => {
     toast.info("Imagen cancelada");
   };
 
-  // Maneja el envío del formulario
   const handleSubmit = () => {
     const product: Product = {
       ...form,
