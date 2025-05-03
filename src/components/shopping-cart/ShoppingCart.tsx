@@ -11,8 +11,10 @@ import {
   Divider,
   Button,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useCartStore } from "../../context/userCartStore";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import CloseIcon from "@mui/icons-material/Close";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const ShoppingCart: React.FC<{ open: boolean; onClose: () => void }> = ({
   open,
@@ -25,8 +27,20 @@ const ShoppingCart: React.FC<{ open: boolean; onClose: () => void }> = ({
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box sx={{ width: 350, p: 2 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          🛒 Carrito de Compras
+      <IconButton
+        onClick={onClose}
+        sx={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+          color: "#000",
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+       <Typography variant="h6" sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+        <ShoppingCartIcon sx={{ fontSize: 24 }} /> 
+         Carrito de Compras
         </Typography>
         <Divider />
         <List>
@@ -40,8 +54,17 @@ const ShoppingCart: React.FC<{ open: boolean; onClose: () => void }> = ({
                 <IconButton
                   edge="end"
                   onClick={() => removeFromCart(product.codigo)}
+                  sx={{
+                    color: "#d32f2f",
+                    "&:hover": {
+                      backgroundColor: "#ffebee",
+                      color: "#c62828",
+                    },
+                    transition: "all 0.3s ease",
+                    borderRadius: "8px",
+                  }}
                 >
-                  <DeleteIcon />
+                  <DeleteOutlineIcon />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
