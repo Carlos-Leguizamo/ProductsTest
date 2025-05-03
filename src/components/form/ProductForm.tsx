@@ -20,7 +20,7 @@ export const ProductForm = () => {
     descripcion: "",
     cantidad: 0,
   });
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string | undefined>(undefined);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -50,20 +50,31 @@ export const ProductForm = () => {
   };
 
   const handleCancelImage = () => {
-    setImage(null);
+    setImage(undefined);
+    toast.info("Imagen cancelada");
   };
 
+  // Maneja el envío del formulario
   const handleSubmit = () => {
     const product: Product = {
       ...form,
       codigo: Number(form.codigo),
       cantidad: Number(form.cantidad),
       creacion: new Date().toISOString(),
+      imagen: image,
     };
     addProduct(product);
     setForm({ codigo: 0, nombre: "", descripcion: "", cantidad: 0 });
+    setImage(undefined);
     toast.success("Producto creado correctamente");
   };
+
+  const isFormValid =
+    form.codigo &&
+    form.nombre &&
+    form.descripcion &&
+    form.cantidad &&
+    image !== undefined;
 
   return (
     <Container
@@ -204,6 +215,7 @@ export const ProductForm = () => {
           variant="contained"
           color="primary"
           onClick={handleSubmit}
+          disabled={!isFormValid}
           sx={{
             marginTop: 2,
             padding: "12px 0",

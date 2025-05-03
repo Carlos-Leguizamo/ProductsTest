@@ -17,6 +17,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
     <Card sx={{ height: "100%" }}>
       <CardContent>
+        <Box
+          component="img"
+          src={product.imagen || ""} 
+          sx={{ width: "100%", height: "auto", borderRadius: 1 }}
+        />
         <Typography variant="h6">{product.nombre}</Typography>
         <Typography variant="body2">{product.descripcion}</Typography>
         <Typography variant="caption">Cantidad: {product.cantidad}</Typography>

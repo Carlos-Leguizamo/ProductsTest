@@ -5,4 +5,5 @@ export interface Product {
     cantidad: number;
     creacion: string; 
     destacado?: boolean;
+    imagen?: string | null | undefined; 
 }
