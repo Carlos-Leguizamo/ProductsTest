@@ -26,11 +26,11 @@ const ShoppingCart: React.FC<{ open: boolean; onClose: () => void }> = ({
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [actionType, setActionType] = useState<"remove" | "clear" | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
 
   const handleOpenModal = (type: "remove" | "clear", productCode?: string) => {
     setActionType(type);
-    setSelectedProduct(productCode || null);
+    setSelectedProduct(productCode ? parseInt(productCode) : null);
     setModalOpen(true);
   };
 
