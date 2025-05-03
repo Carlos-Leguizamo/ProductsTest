@@ -287,6 +287,7 @@ export const ProductList = () => {
       <ConfirmDialog
         open={openDialog}
         onClose={handleCancelDelete}
+        description="¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer."
         onConfirm={() => selectedProduct && handleDelete(selectedProduct)}
       />
     </Box>

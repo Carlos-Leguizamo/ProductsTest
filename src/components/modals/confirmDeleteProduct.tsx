@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@mui/material';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -12,8 +12,8 @@ interface ConfirmDialogProps {
 
 export const ConfirmDialog = ({
   open,
-  title = 'Confirmar Eliminacion De Producto',
-  description = '¿Estás seguro de que deseas continuar?',
+  title = 'Confirmación',
+  description = '',
   confirmText = 'Confirmar',
   cancelText = 'Cancelar',
   onConfirm,
@@ -21,15 +21,15 @@ export const ConfirmDialog = ({
 }: ConfirmDialogProps) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center' }}>{title}</DialogTitle>
       <DialogContent>
-        <Typography>{description}</Typography>
+        <DialogContentText>{description}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="inherit">
+        <Button onClick={onClose} color="secondary">
           {cancelText}
         </Button>
-        <Button onClick={onConfirm} variant="contained" color="error">
+        <Button onClick={onConfirm} color="primary" autoFocus>
           {confirmText}
         </Button>
       </DialogActions>
