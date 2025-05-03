@@ -1,20 +1,39 @@
-import { useInitProducts } from '../hooks/useInitProducts';
-import { ProductForm } from '../components/ProductForm';
-import { ProductList } from '../components/ProductList';
-import { Container, Typography, Box, Link } from "@mui/material";
-import GitHubIcon from "@mui/icons-material/GitHub"; 
+import { useInitProducts } from "../hooks/useInitProducts";
+import { useProductStore } from "../context/productStore";
+import { ProductForm } from "../components/form/ProductForm";
+import { ProductList } from "../components/product-list/ProductList";
+import ProductCarousel from "../components/carrusel/ProductCarrusel";
+
+import { Container, Typography, Box, Link, Divider } from "@mui/material";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Home = () => {
   useInitProducts();
+  const { products } = useProductStore();
 
   return (
-    <Container>
+    <Container maxWidth="md">
       <Typography variant="h4" mt={4} mb={2} sx={{ textAlign: "center" }}>
         Gestor de Productos
       </Typography>
+
       <ProductForm />
       <ProductList />
-      <Box sx={{ position: "relative", mt: 4 }}>
+
+        <>
+          <Typography variant="h6" sx={{textAlign: "center", mb: 2}}>
+            Productos destacados
+          </Typography>
+          <ProductCarousel
+            products={products}
+            visibleCount={3}
+            autoPlay
+            autoPlayInterval={5000}
+          />
+          <Divider sx={{ my: 4 }} />
+        </>
+
+      <Box sx={{ position: "relative", mt: 6 }}>
         <Typography
           variant="body2"
           sx={{
@@ -37,6 +56,9 @@ const Home = () => {
               color: "#1976d2",
               textDecoration: "none",
               fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
             }}
           >
             <GitHubIcon fontSize="small" />

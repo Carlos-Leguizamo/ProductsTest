@@ -15,12 +15,14 @@ import {
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { useProductStore } from "../context/productStore";
+import { useProductStore } from "../../context/productStore";
 import { ToastContainer, toast } from "react-toastify";
-import { ConfirmDialog } from "./confirmDeleteProduct";
+import { ConfirmDialog } from "../modals/confirmDeleteProduct";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 export const ProductList = () => {
-  const { products, deleteProduct } = useProductStore();
+  const { products, deleteProduct, toggleDestacado } = useProductStore();
   const [sortKey, setSortKey] = useState<
     "codigo" | "nombre" | "cantidad" | "creacion"
   >("creacion");
@@ -67,7 +69,6 @@ export const ProductList = () => {
     toast.info("Eliminación cancelada");
     setOpenDialog(false);
   };
-  
 
   const handleSortRequest = (
     key: "codigo" | "nombre" | "cantidad" | "creacion"
@@ -272,6 +273,20 @@ export const ProductList = () => {
                     }}
                   >
                     <DeleteOutlineIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => toggleDestacado(p.codigo)}
+                    sx={{
+                      color: p.destacado ? "#fbc02d" : "#9e9e9e",
+                      "&:hover": {
+                        color: "#fdd835",
+                        backgroundColor: "#fffde7",
+                      },
+                      transition: "all 0.3s ease",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    {p.destacado ? <StarIcon /> : <StarBorderIcon />}
                   </IconButton>
                 </TableCell>
               </TableRow>

@@ -6,6 +6,8 @@ interface ProductState {
   addProduct: (product: Product) => void;
   deleteProduct: (codigo: number) => void;
   loadFromStorage: () => void;
+  toggleDestacado: (codigo: number) => void;
+  // removeDestacado: (codigo: number) => void;
 }
 
 export const useProductStore = create<ProductState>((set) => ({
@@ -30,4 +32,12 @@ export const useProductStore = create<ProductState>((set) => ({
       set({ products: JSON.parse(stored) });
     }
   },
+  toggleDestacado: (codigo: number) => {
+    set((state) => ({
+      products: state.products.map((p) =>
+        p.codigo === codigo ? { ...p, destacado: !p.destacado } : p
+      ),
+    }));
+  },
+
 }));

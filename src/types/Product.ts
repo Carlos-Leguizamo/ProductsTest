@@ -4,5 +4,5 @@ export interface Product {
     descripcion: string;
     cantidad: number;
     creacion: string; 
+    destacado?: boolean;
 }
-  
