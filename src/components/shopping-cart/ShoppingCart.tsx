@@ -86,7 +86,9 @@ const ShoppingCart: React.FC<{ open: boolean; onClose: () => void }> = ({
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
-                    onClick={() => handleOpenModal("remove", product.codigo)}
+                    onClick={() =>
+                      handleOpenModal("remove", product.codigo.toString())
+                    }
                     sx={{
                       color: "#d32f2f",
                       "&:hover": {
