@@ -1,8 +1,16 @@
 import { useState } from "react";
-import { TextField, Button, Box, Typography, Container } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Container,
+  IconButton,
+} from "@mui/material";
 import { useProductStore } from "../../context/productStore";
 import { Product } from "../../types/Product";
 import { toast } from "react-toastify";
+import { PhotoCamera, Cancel } from "@mui/icons-material";
 
 export const ProductForm = () => {
   const addProduct = useProductStore((s) => s.addProduct);
@@ -12,9 +20,37 @@ export const ProductForm = () => {
     descripcion: "",
     cantidad: 0,
   });
+  const [image, setImage] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (image) {
+      toast.error("Ya has cargado una imagen. Solo se permite una.");
+      return;
+    }
+
+    if (file) {
+      const fileType = file.type.split("/")[1];
+      if (fileType === "jpeg" || fileType === "png") {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImage(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+        toast.success("Imagen cargada correctamente");
+      } else {
+        toast.error("Solo se permiten imágenes JPG o PNG");
+      }
+    }
+  };
+
+  const handleCancelImage = () => {
+    setImage(null);
   };
 
   const handleSubmit = () => {
@@ -68,23 +104,6 @@ export const ProductForm = () => {
           onChange={handleChange}
           fullWidth
           variant="outlined"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 4,
-              backgroundColor: "#f9f9f9",
-            },
-            "& .MuiInputLabel-root": {
-              fontSize: "14px",
-              color: "#555",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused": {
-              backgroundColor: "#fff",
-              borderColor: "#1976d2",
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#ddd",
-            },
-          }}
         />
         <TextField
           name="nombre"
@@ -93,23 +112,6 @@ export const ProductForm = () => {
           onChange={handleChange}
           fullWidth
           variant="outlined"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 4,
-              backgroundColor: "#f9f9f9",
-            },
-            "& .MuiInputLabel-root": {
-              fontSize: "14px",
-              color: "#555",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused": {
-              backgroundColor: "#fff",
-              borderColor: "#1976d2",
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#ddd",
-            },
-          }}
         />
         <TextField
           name="descripcion"
@@ -120,23 +122,6 @@ export const ProductForm = () => {
           variant="outlined"
           multiline
           rows={4}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 4,
-              backgroundColor: "#f9f9f9",
-            },
-            "& .MuiInputLabel-root": {
-              fontSize: "14px",
-              color: "#555",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused": {
-              backgroundColor: "#fff",
-              borderColor: "#1976d2",
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#ddd",
-            },
-          }}
         />
         <TextField
           name="cantidad"
@@ -146,24 +131,75 @@ export const ProductForm = () => {
           onChange={handleChange}
           fullWidth
           variant="outlined"
+        />
+        <Box
           sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 4,
-              backgroundColor: "#f9f9f9",
-            },
-            "& .MuiInputLabel-root": {
-              fontSize: "14px",
-              color: "#555",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused": {
-              backgroundColor: "#fff",
-              borderColor: "#1976d2",
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#ddd",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            border: "2px dashed #1976d2",
+            padding: 2,
+            borderRadius: 2,
+            backgroundColor: "#f1f1f1",
+            cursor: "pointer",
+            textAlign: "center",
+            "&:hover": {
+              backgroundColor: "#e3f2fd",
             },
           }}
-        />
+        >
+          <input
+            accept="image/jpeg, image/png"
+            type="file"
+            style={{ display: "none" }}
+            id="image-upload"
+            onChange={handleImageChange}
+          />
+          <label htmlFor="image-upload">
+            <IconButton
+              component="span"
+              sx={{ fontSize: 40, color: "#1976d2" }}
+            >
+              <PhotoCamera />
+            </IconButton>
+            <Typography sx={{ mt: 1, color: "#1976d2", fontWeight: "bold" }}>
+              Subir Imagen
+            </Typography>
+          </label>
+          {image && (
+            <Box sx={{ position: "relative" }}>
+              <Box
+                component="img"
+                src={image}
+                alt="Imagen cargada"
+                sx={{
+                  mt: 2,
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  boxShadow: 3,
+                }}
+              />
+              <IconButton
+                onClick={handleCancelImage}
+                sx={{
+                  position: "absolute",
+                  top: -10,
+                  right: -10,
+                  backgroundColor: "#fff",
+                  borderRadius: "50%",
+                  boxShadow: 2,
+                  "&:hover": {
+                    backgroundColor: "#f44336",
+                  },
+                }}
+              >
+                <Cancel sx={{ color: "#f44336" }} />
+              </IconButton>
+            </Box>
+          )}
+        </Box>
         <Button
           variant="contained"
           color="primary"
