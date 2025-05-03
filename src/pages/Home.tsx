@@ -6,8 +6,17 @@ import { ProductList } from "../components/product-list/ProductList";
 import ProductCarousel from "../components/carrusel/ProductCarrusel";
 import ShoppingCart from "../components/shopping-cart/ShoppingCart";
 
-import { Container, Typography, Box, Link, Divider, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Link,
+  Divider,
+  Button,
+  Stack,
+} from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Home = () => {
   useInitProducts();
@@ -20,32 +29,43 @@ const Home = () => {
         Gestor de Productos
       </Typography>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => setCartOpen(true)}
-        sx={{ mb: 2 }}
-      >
-        Ver Carrito
-      </Button>
-
       <ProductForm />
       <ProductList />
-
-      <>
-      <Typography variant="h6" sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mt: 4, mb: 2 }}
+      >
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
           Productos destacados
         </Typography>
-        <ProductCarousel
-          products={products}
-          visibleCount={3}
-          autoPlay
-          autoPlayInterval={5000}
-        />
-        <Divider sx={{ my: 4 }} />
-      </>
 
-      <Box sx={{ position: "relative", mt: 6 }}>
+        <Button
+          variant="outlined"
+          startIcon={<ShoppingCartIcon />}
+          onClick={() => setCartOpen(true)}
+          sx={{
+            textTransform: "none",
+            fontWeight: "bold",
+            borderRadius: 2,
+            px: 2,
+          }}
+        >
+          Ver Carrito
+        </Button>
+      </Stack>
+
+      <ProductCarousel
+        products={products}
+        visibleCount={3}
+        autoPlay
+        autoPlayInterval={5000}
+      />
+
+      <Divider sx={{ my: 4 }} />
+
+      <Box sx={{ position: "relative", mt: 6, mb: 15 }}>
         <Typography
           variant="body2"
           sx={{
