@@ -31,6 +31,9 @@ const ProductCarousel: React.FC<Props> = ({
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
   const [scrollIndex, setScrollIndex] = useState(0);
   const maxScroll = Math.max(0, products.length - visibleCount);
 
@@ -53,6 +56,68 @@ const ProductCarousel: React.FC<Props> = ({
     }, autoPlayInterval);
     return () => clearInterval(timer);
   }, [scrollIndex, autoPlay, autoPlayInterval]);
+
+  // Efecto para manejar el arrastre del mouse y el desplazamiento táctil del crrusel
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDragging.current = true;
+      startX.current = e.pageX - container.offsetLeft;
+      scrollLeft.current = container.scrollLeft;
+      container.style.cursor = 'grabbing';
+    };
+
+    const handleMouseLeave = () => {
+      isDragging.current = false;
+      container.style.cursor = 'grab';
+    };
+
+    const handleMouseUp = () => {
+      isDragging.current = false;
+      container.style.cursor = 'grab';
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX.current) * 1.5;
+      container.scrollLeft = scrollLeft.current - walk;
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startX.current = e.touches[0].pageX - container.offsetLeft;
+      scrollLeft.current = container.scrollLeft;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const x = e.touches[0].pageX - container.offsetLeft;
+      const walk = (x - startX.current) * 1.5;
+      container.scrollLeft = scrollLeft.current - walk;
+    };
+
+    container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('mousemove', handleMouseMove);
+
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchmove', handleTouchMove);
+
+    container.style.cursor = 'grab';
+
+    return () => {
+      container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('mousemove', handleMouseMove);
+
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
 
   if (products.length === 0) {
     return (
@@ -78,6 +143,11 @@ const ProductCarousel: React.FC<Props> = ({
       py={2}
       sx={{
         overflow: 'hidden',
+        backgroundColor: "#f4f6f8",
+        borderRadius: 2,
+        marginTop: 5,
+        marginBottom: 5,
+        px: 2,
       }}
     >
       <Fade in={scrollIndex > 0}>
