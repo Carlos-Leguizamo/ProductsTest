@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" mt={4} mb={2} sx={{ textAlign: "center" }}>
+      <Typography variant="h4" mt={4} mb={2} sx={{ textAlign: "center", fontWeight: "bold" }}>
         Gestor de Productos
       </Typography>
 
