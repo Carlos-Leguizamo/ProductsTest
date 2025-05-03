@@ -22,7 +22,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <ShoppingCartIcon fontSize="small" />
         {product.nombre} agregado al carrito
       </Box>,
-      { position: "bottom-right" }
+      { position: "top-right" } 
     );
   };
 
