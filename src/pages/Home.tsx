@@ -1,15 +1,18 @@
+import React, { useState } from "react";
 import { useInitProducts } from "../hooks/useInitProducts";
 import { useProductStore } from "../context/productStore";
 import { ProductForm } from "../components/form/ProductForm";
 import { ProductList } from "../components/product-list/ProductList";
 import ProductCarousel from "../components/carrusel/ProductCarrusel";
+import ShoppingCart from "../components/shopping-cart/ShoppingCart";
 
-import { Container, Typography, Box, Link, Divider } from "@mui/material";
+import { Container, Typography, Box, Link, Divider, Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Home = () => {
   useInitProducts();
   const { products } = useProductStore();
+  const [cartOpen, setCartOpen] = useState(false);
 
   return (
     <Container maxWidth="md">
@@ -17,21 +20,30 @@ const Home = () => {
         Gestor de Productos
       </Typography>
 
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setCartOpen(true)}
+        sx={{ mb: 2 }}
+      >
+        Ver Carrito
+      </Button>
+
       <ProductForm />
       <ProductList />
 
-        <>
-          <Typography variant="h6" sx={{textAlign: "center", mb: 2}}>
-            Productos destacados
-          </Typography>
-          <ProductCarousel
-            products={products}
-            visibleCount={3}
-            autoPlay
-            autoPlayInterval={5000}
-          />
-          <Divider sx={{ my: 4 }} />
-        </>
+      <>
+        <Typography variant="h6" sx={{ textAlign: "center", mb: 2 }}>
+          Productos destacados
+        </Typography>
+        <ProductCarousel
+          products={products}
+          visibleCount={3}
+          autoPlay
+          autoPlayInterval={5000}
+        />
+        <Divider sx={{ my: 4 }} />
+      </>
 
       <Box sx={{ position: "relative", mt: 6 }}>
         <Typography
@@ -66,6 +78,8 @@ const Home = () => {
           </Link>
         </Typography>
       </Box>
+
+      <ShoppingCart open={cartOpen} onClose={() => setCartOpen(false)} />
     </Container>
   );
 };

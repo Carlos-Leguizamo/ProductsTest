@@ -18,8 +18,6 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { useProductStore } from "../../context/productStore";
 import { ToastContainer, toast } from "react-toastify";
 import { ConfirmDialog } from "../modals/confirmDeleteProduct";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 export const ProductList = () => {
   const { products, deleteProduct, toggleDestacado } = useProductStore();
@@ -273,20 +271,6 @@ export const ProductList = () => {
                     }}
                   >
                     <DeleteOutlineIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => toggleDestacado(p.codigo)}
-                    sx={{
-                      color: p.destacado ? "#fbc02d" : "#9e9e9e",
-                      "&:hover": {
-                        color: "#fdd835",
-                        backgroundColor: "#fffde7",
-                      },
-                      transition: "all 0.3s ease",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    {p.destacado ? <StarIcon /> : <StarBorderIcon />}
                   </IconButton>
                 </TableCell>
               </TableRow>
