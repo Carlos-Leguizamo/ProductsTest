@@ -20,7 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { ConfirmDialog } from "../modals/confirmDeleteProduct";
 
 export const ProductList = () => {
-  const { products, deleteProduct, toggleDestacado } = useProductStore();
+  const { products, deleteProduct } = useProductStore();
   const [sortKey, setSortKey] = useState<
     "codigo" | "nombre" | "cantidad" | "creacion"
   >("creacion");

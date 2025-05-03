@@ -33,7 +33,7 @@ const Home = () => {
       <ProductList />
 
       <>
-        <Typography variant="h6" sx={{ textAlign: "center", mb: 2 }}>
+      <Typography variant="h6" sx={{ textAlign: "center", mb: 2, fontWeight: "bold" }}>
           Productos destacados
         </Typography>
         <ProductCarousel
